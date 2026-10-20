@@ -1,0 +1,18 @@
+# Maven build output
+target/
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# macOS
+.DS_Store
+
+# Logs and local config
+*.log
+.env
+
+# Compiled files
+*.class
+*.jar
