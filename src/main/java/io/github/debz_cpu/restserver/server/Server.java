@@ -1,10 +1,13 @@
 package io.github.debz_cpu.restserver.server;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+
+import io.github.debz_cpu.restserver.http.ContentType;
 import io.github.debz_cpu.restserver.http.HttpStatus;
 
 
@@ -26,6 +29,14 @@ public class Server {
             byte[] responseBytes =response.getBytes(StandardCharsets.UTF_8);
             //SendResponse expects long for length
             long responseLength = responseBytes.length;
+            //enum constant for this endpoint (e.g., JSON)
+            ContentType currentContentType = ContentType.PLAIN_TEXT;
+
+            //Get the response headers map from the exchange
+            Headers responseHeaders = exchange.getResponseHeaders();
+
+            //Set the Content-Type using your enum + append the charset
+            responseHeaders.set("Content-Type",currentContentType.getType()+ "; charset=UTF-8");
 
             //4. Send status + exact body length in BYTES first; a wrong length makes the JDK abort the response
             exchange.sendResponseHeaders(statusCode,responseLength);
