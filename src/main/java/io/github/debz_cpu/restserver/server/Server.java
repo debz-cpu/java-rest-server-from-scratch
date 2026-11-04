@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import io.github.debz_cpu.restserver.http.HttpStatus;
 
 
 public class Server {
@@ -20,7 +21,7 @@ public class Server {
             String response = "Hello Wörld from the lambda handler €!";
 
             // Variables for the parameters
-            int statusCode=200;
+            int statusCode=HttpStatus.OK.getCode();
             // Charset to help integrate European characters 2 byte for them eg:ö and symbols like € take 3 bytes
             byte[] responseBytes =response.getBytes(StandardCharsets.UTF_8);
             //SendResponse expects long for length
